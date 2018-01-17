@@ -98,12 +98,6 @@ catalog:
             - rancher-nfs
             - rancher-efs
             - rancher-ebs
-        - variable: "SIZE"
-          label: "Size"
-          description: "Size of EBS Volume"
-          required: false
-          type: "int"
-          default: 500
 
 services:
 

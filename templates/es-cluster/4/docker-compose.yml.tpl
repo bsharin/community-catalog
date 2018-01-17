@@ -116,7 +116,4 @@ services:
 volumes:
   es-storage-volume:
     driver: ${VOLUME_DRIVER}
-    driver_opts:
-      size: ${SIZE}
-      volumeType: gp2
     per_container: true
