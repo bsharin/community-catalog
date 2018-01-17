@@ -44,6 +44,14 @@
       default: "es-cluster/es-client"
       required: true
       type: "service"
+    - variable: "kibana_link"
+      description: |
+        stack/service link or external service link to kibana
+        cluster.
+      label: "Kibana stack/service"
+      default: "Sophos-ELK/kibana"
+      required: true
+      type: "service"
 logstash-indexer:
   metadata:
     logstash:
