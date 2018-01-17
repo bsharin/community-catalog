@@ -25,7 +25,7 @@ logstash-indexer:
   links:
   - redis:redis
   external_links:
-  - ${elasticsearch_link}:elasticsearch
+  - ${elasticsearch_link}:elasticsearch1
   stdin_open: true
   labels:
     io.rancher.sidekicks: logstash-indexer-config

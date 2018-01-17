@@ -31,7 +31,7 @@
       required: true
       default: |
         elasticsearch {
-          hosts => ["elasticsearch.rancher.internal:9200"]
+          hosts => ["elasticsearch1:9200"]
         }
         stdout {
           codec => rubydebug
