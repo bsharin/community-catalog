@@ -15,7 +15,7 @@ logstash-indexer:
   tty: true
   volumes_from:
   - logstash-indexer-config
- volumes:
+  volumes:
   - /home/bsharin/elk/logstash/AlienVaultIP.yaml:/opt/logstash/AlienVaultIP.yaml
   command:
   - logstash
