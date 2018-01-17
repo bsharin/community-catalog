@@ -1,6 +1,0 @@
-name: Openshift Origin
-description: |
-  (Experimental) A container application platform deployed on Kubernetes.
-version: v1.2.4-rancher9
-category: Orchestration
-maintainer: "George Monitor <george@ubermonitoring.com>"
