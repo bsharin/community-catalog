@@ -11,7 +11,7 @@
       type: "multiline"
       required: true
       default: |
-        udp {
+        tcp {
           port => 5140
         }
     - variable: "indexer_filters"
