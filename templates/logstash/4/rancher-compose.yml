@@ -32,9 +32,7 @@
       default: |
         elasticsearch {
           hosts => ["elasticsearch1:9200"]
-        }
-        stdout {
-          codec => rubydebug
+          index => "utm-%{+YYYY.MM.dd}"
         }
     - variable: "elasticsearch_link"
       description: |
