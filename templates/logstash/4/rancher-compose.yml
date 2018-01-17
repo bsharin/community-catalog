@@ -1,5 +1,4 @@
-version: '2'
-catalog:
+.catalog:
   name: "Logstash"
   version: "6.1.1-rancher1"
   description: "Logstash: Process Any Data, From Any Source"
