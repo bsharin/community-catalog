@@ -49,7 +49,7 @@ logstash-indexer:
     logstash:
       inputs: |
         redis {
-          host => "redis.rancher.internal"
+          host => "redis"
           port => "6379"
           data_type => "list"
           key => "logstash"
@@ -65,7 +65,7 @@ logstash-collector:
         ${collector_inputs}
       outputs: |
         redis {
-          host => "redis.rancher.internal"
+          host => "redis"
           port => "6379"
           data_type => "list"
           key => "logstash"

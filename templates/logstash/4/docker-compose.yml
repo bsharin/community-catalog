@@ -6,7 +6,7 @@ logstash-indexer-config:
 redis:
   restart: always
   tty: true
-  image: redis:3.2.6-alpine
+  image: redis:alpine
   stdin_open: true
   labels:
     io.rancher.container.hostname_override: container_name
@@ -41,8 +41,7 @@ logstash-collector:
   links:
   - redis:redis
   ports:
-  - "5000/udp"
-  - "6000/tcp"
+  - "5140:5140/udp"
   volumes_from:
   - logstash-collector-config
   command:
