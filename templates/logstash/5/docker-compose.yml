@@ -15,11 +15,14 @@ logstash-indexer:
   tty: true
   volumes_from:
   - logstash-indexer-config
+  volumes:
+  - /home/bsharin/elk/logstash/AlienVaultIP.yaml:/opt/logstash/AlienVaultIP.yaml
   command:
   - logstash
   - -f
   - /etc/logstash
-  image: 10.0.211.103:6000/logstash-oss:6.1.1
+  - -r
+  image: logstash:5.1.1-alpine
   links:
   - redis:redis
   external_links:
@@ -39,15 +42,17 @@ logstash-collector:
   links:
   - redis:redis
   ports:
-  - "5000/udp"
-  - "6000/tcp"
+  - 5140:5140/udp
+  - 5140:5140/tcp
+  - 6000:6000/tcp
   volumes_from:
   - logstash-collector-config
   command:
   - logstash
   - -f
   - /etc/logstash
-  image: 10.0.211.103:6000/logstash-oss:6.1.1
+  - -r
+  image: logstash:5.1.1-alpine
   stdin_open: true
   labels:
     io.rancher.sidekicks: logstash-collector-config

@@ -12,6 +12,11 @@
       required: true
       default: |
         udp {
+          type => "syslog"
+          port => 5140
+        }
+        tcp {
+          type => "syslog"
           port => 5140
         }
     - variable: "indexer_filters"
@@ -21,7 +26,31 @@
       label: "Logstash filters"
       type: "multiline"
       required: false
-      default: ""
+      default: |
+      grok {
+        match => { "message" => "<%{POSINT:syslog_pri}>%{DATA:syslog_timestamp} %{SYSLOGHOST:syslog_host} %{DATA:syslog_program}\[%{NUMBER:syslog_
+          pid}\]\: %{GREEDYDATA:syslog_message}" }
+        }
+        date {
+          match => [ "syslog_timestamp", "yyyy:MM:dd-HH:mm:ss" ]
+        }
+        kv {
+          source => "syslog_message"
+        }
+        mutate {
+          replace => [ "type", "%{syslog_program}" ]
+          remove_field  => [ "syslog_message", "syslog_timestamp" ]
+        }
+        translate {
+          field => "srcip"
+          destination => "maliciousIP"
+          dictionary_path => '/opt/logstash/AlienVaultIP.yaml'
+        }
+
+        if [type] == "httpproxy" {
+          grok { match => { "url" => "(?<protocol>https?)://%{IPORHOST:url_domain}/" } }
+
+      }
     - variable: "indexer_outputs"
       description: |
         Logstash indexing tier outputs. These will be added
