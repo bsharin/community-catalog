@@ -27,61 +27,30 @@
       type: "multiline"
       required: false
       default: |
-        if [type] == "syslog" {
-          if [host] =~ /10\.0\.110\.1/ {
-            mutate {
-              add_tag => ["PFSense", "Ready"]
-            }
-          }
+      grok {
+        match => { "message" => "<%{POSINT:syslog_pri}>%{DATA:syslog_timestamp} %{SYSLOGHOST:syslog_host} %{DATA:syslog_program}\[%{NUMBER:syslog_
+          pid}\]\: %{GREEDYDATA:syslog_message}" }
         }
-        if "Ready" not in [tags] {
-          mutate {
-            add_tag => [ "syslog" ]
-          }
-        }
-        if [type] == "syslog" {
-          mutate {
-            remove_tag => "Ready"
-          }
-        if "syslog" in [tags] {
-          grok {
-            match => { "message" => "%{SYSLOGTIMESTAMP:syslog_timestamp} %{SYSLOGHOST:syslog_hostname} %{DATA:syslog_program}(?:\[%{POSINT:syslog_pid}\])? %{GREEDYDATA:syslog_message}" }
-            add_field => [ "received_at", "%{@timestamp}" ]
-            add_field => [ "received_from", "%{host}" ]
-          }
-        }
-        syslog_pri { }
         date {
-          match => [ "syslog_timestamp", "MMM  d HH:mm:ss", "MMM  dd HH:mm:ss" ]
-          locale => "en"
+          match => [ "syslog_timestamp", "yyyy:MM:dd-HH:mm:ss" ]
         }
-        if !("_grokparsefailure" in [tags]) {
-          mutate {
-            replace => [ "@source_host", "%{syslog_hostname}" ]
-            replace => [ "@message", "%{syslog_message}" ]
-          }
+        kv {
+          source => "syslog_message"
         }
         mutate {
-          remove_field => [ "syslog_hostname", "syslog_message", "syslog_timestamp" ]
+          replace => [ "type", "%{syslog_program}" ]
+          remove_field  => [ "syslog_message", "syslog_timestamp" ]
         }
-        if "PFSense" in [tags] {
-          grok {
-            add_tag => [ "firewall" ]
-            match => [ "message", "<(?<evtid>.*)>(?<datetime>(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+(?:(?:0[1-9])|(?:[12][0-9])|(?:3[01])|[1-9]) (?:2[0123]|[01]?[0-9]):(?:[0-5][0-9]):(?:[0-5][0-9])) (?<prog>.*?) (?<msg>.*)" ]
-          }
-          mutate {
-            gsub => ["datetime","  "," "]
-          }
-          date {
-            match => [ "datetime", "MMM dd HH:mm:ss" ]
-          }
-          mutate {
-            replace => [ "message", "%{msg}" ]
-          }
-          mutate {
-            remove_field => [ "msg", "datetime" ]
-          }
+        translate {
+          field => "srcip"
+          destination => "maliciousIP"
+          dictionary_path => '/opt/logstash/AlienVaultIP.yaml'
         }
+
+        if [type] == "httpproxy" {
+          grok { match => { "url" => "(?<protocol>https?)://%{IPORHOST:url_domain}/" } }
+
+      }
     - variable: "indexer_outputs"
       description: |
         Logstash indexing tier outputs. These will be added
@@ -101,7 +70,7 @@
         stack/service link or external service link to elasticsearch
         cluster.
       label: "Elasticsearch stack/service"
-      default: "es/elasticsearch-clients"
+      default: "es-cluster/es-client"
       required: true
       type: "service"
 logstash-indexer:

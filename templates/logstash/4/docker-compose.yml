@@ -15,14 +15,14 @@ logstash-indexer:
   tty: true
   volumes_from:
   - logstash-indexer-config
+  volumes:
+  - /home/bsharin/elk/logstash/AlienVaultIP.yaml:/opt/logstash/AlienVaultIP.yaml
   command:
   - logstash
   - -f
   - /etc/logstash
   - -r
-  image: docker.elastic.co/logstash/logstash:6.1.1
-  environment:
-  - 'XPACK.MONITORING.ELASTICSEARCH.URL=http://elasticsearch.rancher.internal:9200'
+  image: 10.0.211.103:6000/logstash-oss:6.1.1
   links:
   - redis:redis
   external_links:
@@ -52,9 +52,7 @@ logstash-collector:
   - -f
   - /etc/logstash
   - -r
-  image: docker.elastic.co/logstash/logstash:6.1.1
-  environment:
-  - 'XPACK.MONITORING.ELASTICSEARCH.URL=http://elasticsearch.rancher.internal:9200'
+  image: 10.0.211.103:6000/logstash-oss:6.1.1
   stdin_open: true
   labels:
     io.rancher.sidekicks: logstash-collector-config
