@@ -43,14 +43,14 @@ catalog:
           required: true
           label: "Heap size (data nodes)"
           description: "Heap size to be allocated for Java (data nodes)"
-          default: "1024m"
+          default: "2048m"
 
         - variable: "data_mem_limit"
           type: "int"
           required: true
           label: "Memory limit in byte (data nodes)"
           description: "Memory limit in Byte per elasticsearch container. AT LEAST double the heap size! (data nodes)"
-          default: 2147483648
+          default: 3221225472
 
         - variable: "client_heap_size"
           type: "string"
