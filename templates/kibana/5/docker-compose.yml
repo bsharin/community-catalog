@@ -20,7 +20,7 @@ nginx-proxy:
     io.rancher.container.hostname_override: container_name
     io.rancher.sidekicks: nginx-proxy-conf,kibana6
   external_links:
-    - ${elasticsearch_source}:elasticsearch1
+    - ${elasticsearch_source}:elasticsearch
 kibana6:
   restart: always
   tty: true
@@ -32,4 +32,4 @@ kibana6:
   labels:
     io.rancher.container.hostname_override: container_name
   external_links:
-    - ${elasticsearch_source}:elasticsearch1
+    - ${elasticsearch_source}:elasticsearch
