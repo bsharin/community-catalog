@@ -1,6 +1,6 @@
 .catalog:
   name: "Kibana"
-  version: "6.1.1-rancher1"
+  version: "6.1.2-rancher1"
   description: "Kibana: Explore & Visualize Your Data"
   questions:
     - variable: "elasticsearch_source"
