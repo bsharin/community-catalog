@@ -1,4 +1,4 @@
-6.1.2version: '2'
+version: '2'
 services:
     es-master:
         labels:
