@@ -1,5 +1,5 @@
 name: Logstash
 description: |
   Centralize data processing of all types
-version: 6.1.1-rancher1
+version: 6.1.x-rancher1
 category: ELK
