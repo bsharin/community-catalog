@@ -1,5 +1,5 @@
-name: Elasticsearch OSS Cluster 6.1.1
+name: Elasticsearch OSS Cluster 6.1.x
 description: |
   Elasticsearch OSS, you know for search!
-version: 6.1.1-rancher1
+version: 6.1.x-rancher1
 category: ELK
