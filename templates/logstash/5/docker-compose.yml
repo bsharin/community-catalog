@@ -17,8 +17,10 @@ logstash-indexer:
   - logstash-indexer-config
   volumes:
   - /home/bsharin/elk/logstash/AlienVaultIP.yaml:/opt/logstash/AlienVaultIP.yaml
-  - /home/bsharin/elk/logstash/cidr.txt:/opt/logstash/cidr.txt
+  - /home/bsharin/elk/logstash/dshield.txt:/opt/logstash/dshield.txt
   - /home/bsharin/elk/logstash/aws.txt:/opt/logstash/aws.txt
+  - /home/bsharin/elk/logstash/spamhaus.txt:/opt/logstash/spamhaus.txt
+  - /home/bsharin/elk/logstash/binarydefense.txt:/opt/logstash/binarydefense.txt
   command:
   - logstash
   - -f
