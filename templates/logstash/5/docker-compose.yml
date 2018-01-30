@@ -18,6 +18,7 @@ logstash-indexer:
   volumes:
   - /home/bsharin/elk/logstash/AlienVaultIP.yaml:/opt/logstash/AlienVaultIP.yaml
   - /home/bsharin/elk/logstash/cidr.txt:/opt/logstash/cidr.txt
+  - /home/bsharin/elk/logstash/aws.txt:/opt/logstash/aws.txt
   command:
   - logstash
   - -f
