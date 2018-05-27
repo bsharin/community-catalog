@@ -24,7 +24,7 @@ nginx-proxy:
 kibana6:
   restart: always
   tty: true
-  image: docker.elastic.co/kibana/kibana-oss:6.1.2
+  image: docker.elastic.co/kibana/kibana-oss:6.2.4
   net: "container:nginx-proxy"
   stdin_open: true
   environment:
