@@ -25,7 +25,7 @@ logstash-indexer:
   - logstash
   - -f
   - /etc/logstash
-  image: 10.0.211.103:6000/logstash-oss:6.1.2
+  image: 10.0.211.103:6000/logstash-oss:6.2.4
   links:
   - redis:redis
   external_links:
@@ -52,7 +52,7 @@ logstash-collector:
   - logstash
   - -f
   - /etc/logstash
-  image: 10.0.211.103:6000/logstash-oss:6.1.2
+  image: 10.0.211.103:6000/logstash-oss:6.2.4
   stdin_open: true
   labels:
     io.rancher.sidekicks: logstash-collector-config
