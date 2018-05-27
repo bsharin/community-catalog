@@ -11,7 +11,7 @@
       type: "multiline"
       required: true
       default: |
-        tcp {
+        udp {
           port => 5140
         }
     - variable: "indexer_filters"
@@ -32,7 +32,7 @@
       default: |
         elasticsearch {
           hosts => ["elasticsearch1:9200"]
-          index => "logstash-utm-%{+YYYY.MM.dd}"
+          index => "opnsense-%{+YYYY.MM.dd}"
         }
     - variable: "elasticsearch_link"
       description: |
