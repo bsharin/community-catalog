@@ -12,7 +12,7 @@
       required: true
       default: |
         udp {
-          port => 514
+          port => 5140
         }
     - variable: "indexer_filters"
       description: |
