@@ -22,6 +22,7 @@ logstash-indexer:
   - /home/bsharin/elk/logstash/spamhaus.txt:/opt/logstash/spamhaus.txt
   - /home/bsharin/elk/logstash/binarydefense.yaml:/opt/logstash/binarydefense.yaml
   - /home/bsharin/elk/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+  - /home/bsharin/elk/logstash/pipleline:/usr/share/logstash/pipeline:ro
   command:
   - logstash
   - -f
