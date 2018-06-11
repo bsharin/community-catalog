@@ -34,6 +34,9 @@
           hosts => ["elasticsearch1:9200"]
           index => "logstash-opnsense-%{+YYYY.MM.dd}"
         }
+        stdout {
+          codec => rubydebug
+        }
     - variable: "elasticsearch_link"
       description: |
         stack/service link or external service link to elasticsearch
@@ -67,4 +70,7 @@ logstash-collector:
           port => "6379"
           data_type => "list"
           key => "logstash"
+        }
+        stdout {
+          codec => rubydebug
         }
