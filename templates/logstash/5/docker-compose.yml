@@ -45,7 +45,7 @@ logstash-collector:
   links:
   - redis:redis
   ports:
-  - "514:514/udp"
+  - "5140:5140/udp"
   volumes_from:
   - logstash-collector-config
   command:
